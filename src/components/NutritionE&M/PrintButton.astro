@@ -1,0 +1,61 @@
+<script>
+  import jsPDF from 'jspdf';
+  async function generatePDF() {
+    const doc = new jsPDF();
+
+    // Example text document content
+    const content = `
+Nutrition Monitoring & Evaluation Report
+========================================
+
+Date: ${new Date().toLocaleDateString()}
+
+Summary:
+---------
+This document contains the results and observations for the Nutrition Monitoring & Evaluation process. It includes stats, analytics, and form data as applicable.
+
+- Indicator: XYZ
+- Criteria: ABC
+- Status: In Progress
+- Progress Notes:
+  1. Detail one.
+  2. Detail two.
+
+Graph Data:
+------------
+The graph data is summarized for better clarity.
+    `;
+    // Add text to the PDF document
+    const margin = 10;
+    const lineHeight = 10;
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+
+    const textLines = doc.splitTextToSize(content, pageWidth - 2 * margin);
+    let y = margin;
+
+    for (let i = 0; i < textLines.length; i++) {
+      if (y + lineHeight > pageHeight - margin) {
+        doc.addPage();
+        y = margin; // Reset y to the top margin
+      }
+      doc.text(textLines[i], margin, y);
+      y += lineHeight;
+    }
+
+    // Show preview in a new browser tab
+    const pdfBlob = doc.output('blob');
+    const pdfURL = URL.createObjectURL(pdfBlob);
+    window.open(pdfURL, '_blank');
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const printButton = document.getElementById('print-button') as HTMLButtonElement | null;
+
+    if (printButton) {
+      printButton.addEventListener('click', generatePDF);
+    } else {
+      console.error('Print button not found in the DOM.');
+    }
+  });
+</script>

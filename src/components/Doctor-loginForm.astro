@@ -1,0 +1,185 @@
+<script lang="ts">
+  async function handleLogin(event) {
+  event.preventDefault();
+
+  try {
+    const formData = new FormData(event.target);
+
+    const Email = formData.get('Email')?.toString().trim().toLowerCase();
+    const Password = formData.get('Password')?.toString().trim();
+
+    if (!Email || !Password) {
+      alert('Email and password are required!');
+      return;
+    }
+
+    console.log('Sending Login Data:', { Email, Password });
+
+    const response = await fetch('http://127.0.0.1:1337/api/custom-user/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ Email, Password }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('Login failed:', errorData);
+      throw new Error(errorData.error?.message || 'Login failed.');
+    }
+
+    const data = await response.json();
+
+    if (!data.token) {
+      throw new Error('Invalid server response. Token is missing.');
+    }
+
+    localStorage.setItem('token', data.token);
+    alert('Login successful!');
+    window.location.href = '/Doctor';
+  } catch (error) {
+    console.error('Error:', error.message || 'An unknown error occurred.');
+    alert(error.message || 'An unknown error occurred.');
+  }
+}
+</script>
+
+<form class="login-form" onsubmit="handleLogin(event)">
+  <img src="/icons/Doctor.png" alt="Login Icon" class="login-icon mb-12" />
+
+  <label for="Email" class="login-label">Email:</label>
+  <input type="email" id="Email" name="Email" class="login-input" required />
+
+  <label for="Password" class="login-label">Password:</label>
+  <input type="password" id="Password" name="Password" class="login-input" required />
+
+  <div class="button-group">
+    <button type="submit" class="login-button">Login</button>
+    <a href="/Signup" class="signup-button">Sign Up</a>
+  </div>
+
+  <!-- Additional Sign-In Options -->
+  <div class="social-signin">
+    <p class="or">OR WITH</p>
+    <div class="social-icons">
+      <a href="#" class="google-signin">
+        <img src="/icons/Google.png" alt="Sign in with Google" />
+      </a>
+      <a href="#" class="facebook-signin">
+        <img src="/icons/facebook.png" alt="Sign in with Facebook" />
+      </a>
+      <a href="#" class="microsoft-signin">
+        <img src="/icons/Microsoft.png" alt="Sign in with Microsoft" />
+      </a>
+    </div>
+  </div>
+</form>
+
+
+<style>
+  
+  .login-form {
+    max-width: 600px;
+    min-width: 350px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 55px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .login-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .login-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #004d40;
+    width: 100%;
+  }
+
+  .login-input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 6px;
+    margin-top: 6px;
+  }
+
+  .login-button, .signup-button {
+    width: 48%;
+    padding: 10px;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .login-button {
+    background-color: #004d40;
+  }
+
+  .signup-button {
+    background-color: #00796b;
+  }
+
+  .login-button:hover {
+    background-color: #00362e;
+  }
+
+  .signup-button:hover {
+    background-color: #005c4f;
+  }
+
+  .social-signin {
+    text-align: center;
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  .or {
+    margin: 16px 0;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .social-icons img {
+    width: 32px;
+    height: auto;
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .social-icons img:hover {
+    transform: scale(1.1);
+  }
+</style>

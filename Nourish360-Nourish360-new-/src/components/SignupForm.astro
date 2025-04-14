@@ -1,0 +1,150 @@
+<script lang="ts">
+  async function handleSignup(event) {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+
+    const userData = {
+      First_Name: formData.get('First_Name'),
+      Last_Name: formData.get('Last_Name'),
+      Email: formData.get('Email'),
+      Password: formData.get('Password'),
+      prcId: formData.get('prcId'),
+      AccountType: formData.get('AccountType'),
+    };
+
+    try {
+      const response = await fetch('http://127.0.0.1:1337/api/custom-user/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        console.error('Backend Error:', error);
+        throw new Error(error?.error?.message || 'Failed to create account.');
+      }
+
+      alert('Account created successfully!');
+      window.location.href = '/Sign-in';
+    } catch (error) {
+      console.error('Error:', error.message || 'An unknown error occurred.');
+      alert(error.message || 'An unknown error occurred.');
+    }
+  }
+</script>
+
+
+<form class="signup-form" onsubmit="handleSignup(event)">
+  <img src="/Logo(1).png" alt="Signup Icon" class="signup-icon mb-12">
+
+  <label for="firstName" class="signup-label">First Name:</label>
+  <input type="text" id="firstName" name="First_Name" class="signup-input" required />
+
+  <label for="lastName" class="signup-label">Last Name:</label>
+  <input type="text" id="lastName" name="Last_Name" class="signup-input" required />
+
+  <label for="email" class="signup-label">Email:</label>
+  <input type="email" id="email" name="Email" class="signup-input" required />
+
+  <label for="password" class="signup-label">Password:</label>
+  <input type="password" id="password" name="Password" class="signup-input" required />
+
+  <label for="prcId" class="signup-label">PRC ID:</label>
+  <input type="text" id="prcId" name="prcId" class="signup-input" required />
+
+  <label for="accountType" class="signup-label">Account Type:</label>
+  <select id="accountType" name="AccountType" class="signup-input" required>
+    <option value="" disabled selected>Select account type</option>
+    <option value="Doctor">Doctor</option>
+    <option value="RND">RND</option>
+  </select>
+
+  <button type="submit" class="create-account-button">Create Account</button>
+
+  <p class="already-have-account">
+    Already Have an Account? <a href="/Sign-in" class="login-link">Login</a>
+  </p>
+</form>
+
+
+<style>
+  .signup-form {
+    max-width: 680px;
+    min-width: 380px;
+    margin: 50px auto 50px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 55px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .signup-icon {
+    width: 90px;
+    height: 90px;
+  }
+
+  .signup-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #004d40;
+    width: 100%;
+  }
+
+  .signup-input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+
+  .button-group {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  .create-account-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #004d40;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+  }
+
+  .create-account-button:hover {
+    background-color: #00362e;
+  }
+
+  .already-have-account {
+    margin-top: 16px;
+    text-align: center;
+  }
+
+  .login-link {
+    color: #00796b;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .login-link:hover {
+    text-decoration: underline;
+  }
+</style>

@@ -1,0 +1,44 @@
+---
+import Layout from "../layouts/Layout.astro";
+import NutritionProblem from "../components/Nutrition D & I/NutritionProblem.astro";
+import Goals from "../components/Nutrition D & I/Goals.astro";
+import InterventionPlan from "../components/Nutrition D & I/InterventionPlan.astro";
+import NutritionTable from "../components/Nutrition D & I/NutritionTable.astro";
+import NutritionInterventionTable from "../components/Nutrition D & I/NutritionInterventionTable.astro";
+import Prescription from "../components/Nutrition D & I/Prescription.astro";
+import Form from "../components/NutritionE&M/Form.astro";
+---
+<Layout title="Nourish360" isRNDPage={true}>
+    <div class="bg-[#EDF9FF] flex flex-col items-center justify-center min-h-screen w-full bg-gradient-to-r">
+        <div class="container mx-auto p-4 md:p-8">
+            <h1 class="text-3xl font-bold text-center mb-6">Nutrition Diagnosis & Intervention</h1>
+
+            <!-- Nutrition Problem and Goals Section -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <NutritionProblem />
+                <Goals />
+            </div>
+
+            <!-- Progress Note Table -->
+            <div class="mb-6">
+                <NutritionTable />
+            </div>
+
+            <!-- Centered Intervention Plan -->
+            <div class="flex justify-center">
+                <div class="w-full sm:w-3/4 md:w-2/3 lg:w-1/2">
+                    <InterventionPlan />
+                </div>
+            </div>
+
+            <div class="mb-6 mt-6">
+                <Prescription />
+            </div>
+
+            <div class="mb-6 mt-6">
+                <NutritionInterventionTable />
+            </div>
+
+        </div>
+    </div>
+</Layout>

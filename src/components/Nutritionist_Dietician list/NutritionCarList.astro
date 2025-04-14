@@ -1,0 +1,36 @@
+---
+const nutritionists = [
+  { name: "Maria Cruz", specialty: "Pediatric Nutrition", qualifications: " Registered Dietitian (RD), Certified Specialist in Pediatric Nutrition (CSPN) ",timings: "Mon - Fri, 9:00 AM to 5:00 PM", image: "../public/profiles/Ellipse 4.png", available: true},
+  { name: "David Kim", specialty: " Sports Nutrition", qualifications: "Registered Dietitian (RD), Certified Sports Nutritionist (CSN) ", timings: "Fri, 10:00 AM to 2:00 PM, Sat 9:00 AM to 12:00 PM", image: "../public/profiles/Ellipse 1.png", available: true,},
+  { name: "Luke Ramirez", specialty: "Clinical Nutrition", qualifications: "Registered Dietitian (RD), Certified Clinical Dietitian (CCD)", timings: "Fri, 9:00 AM to 5:00 PM, Sat 1:00 PM to 3:00 PM", image: "../public/profiles/Ellipse 2.png", available: false,},
+  { name: "Ana Santos", specialty: "General Nutrition", qualifications: "Registered Nutritionist-Dietitian (RND)", timings: "Mon - Fri, 10:00 AM to 2:00 PM, Sat 8:00 AM to 12:00 PM", image: "../public/profiles/Ellipse 3.png", available: false,},
+  { name: "Aisha Patel", specialty: "Geriatric Nutrition", qualifications: "Registered Dietitian (RD), Certified Dietitian Specialist in Gerontology (CDG)", timings: "Mon - Thu, 12:00 PM to 4:00 PM, Fri 9:00 AM to 1:00 PM", image:"../public/profiles/Ellipse 5.png", available: "True"},
+  // Add more nutritionists as necessary
+];
+---
+<!-- Nutritionist-Dietician Cards -->
+<div class="grid grid-cols-3 gap-6">
+
+    {nutritionists.map(nutritionist => (
+      <div class="p-4 bg-white rounded-lg shadow-lg">
+        <div class="flex items-center space-x-4">
+          <img src={nutritionist.image} alt={nutritionist.name} class="w-16 h-16 rounded-full">
+          <div>
+            <h3 class="text-xl font-semibold">{nutritionist.name}</h3>
+            <p class="text-sm text-yellow-500">{nutritionist.specialty}</p>
+            <p class="text-xs text-gray-500">{nutritionist.qualifications}</p>
+            <p class="text-sm">{nutritionist.timings}</p>
+          </div>
+        </div>
+        {nutritionist.available ? (
+          <button class="mt-4 w-full p-2 bg-green-500 text-white rounded-lg hover:bg-green-600">
+            Refer
+          </button>
+        ) : (
+          <button class="mt-4 w-full p-2 bg-gray-400 text-white rounded-lg" disabled>
+            Not Available
+          </button>
+        )}
+      </div>
+    ))}
+  </div>

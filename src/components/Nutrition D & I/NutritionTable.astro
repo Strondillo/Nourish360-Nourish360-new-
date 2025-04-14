@@ -1,0 +1,127 @@
+---
+const rows = [
+  { domain: "", priority: "High",},
+  { domain: "Intake", priority: "Medium", status: "In-progress" },
+  { domain: "Behavioral Environmental", priority: "Medium", status: "In-progress" },
+  { domain: "Other", priority: "Medium", status: "In-progress" },
+];  
+
+const colors = [
+  { name: '', value: '#EFF2F5' },
+  { name: 'Low', value: '#A2F9A1' },
+  { name: 'Medium', value: '#F9CB86' },
+  { name: 'High', value: '#FB937C' },
+];
+
+const status = [
+  { name: '', value: '#EFF2F5' },
+  { name: 'Resoloved', value: '#A2F9A1' },
+  { name: 'In-progress', value: '#F9CB86' },
+  { name: 'Not Resolved', value: '#FB937C' },
+];
+---
+<div class="p-4 border rounded-lg bg-white shadow-md">
+  <table class="w-full border-collapse border border-blue-300 rounded-lg overflow-hidden">
+    <thead>
+      <tr>
+        <th class="p-2 border bg-gray-100 text-gray-700 w-1/6">Domain</th>
+        <th class="p-2 border bg-gray-100 text-gray-700 w-1/5">PES Statement</th>
+        <th class="p-2 border bg-gray-100 text-gray-700 w-1/7">Priority</th>
+        <th class="p-2 border bg-gray-100 text-gray-700 w-1/7">Status</th>
+        <th class="p-2 border bg-gray-100 text-gray-700 w-1/4">Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((row, index) => (
+        <tr class="hover:bg-gray-50">
+          <td class="p-2 border text-left bg-white text-gray-700">
+            <select class="w-full h-8 text-sm px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="">Select domain</option>
+              <option>Clinical</option>
+              <option>Intake</option>
+              <option>Behavioral Environmental</option>
+              <option>Other</option>
+            </select>
+          </td>
+          <td class="p-2 border text-gray-700 w-1/4">
+            <textarea
+              class="w-full h-full uk-textarea"
+              rows="4"
+              placeholder="Write Text.."
+              aria-label="Textarea"
+            ></textarea>
+          </td>
+          <td class="p-2 border text-center">
+            <div class="relative">
+              <select
+                id={`colorDropdown-priority-${index}`}
+                class="w-full h-8 text-sm px-3 border border-gray-300 bg-gray-100 text-gray-700 rounded-md appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+                style="background-image: none;" 
+              >
+                {colors.map((color: { name: string; value: string }) => (
+                  <option value={color.value} style={`background-color: ${color.value}; color: black;`}>
+                    {color.name}
+                  </option>
+                ))}
+              </select>
+              <span class="absolute inset-y-0 right-3 flex items-center pointer-events-none text-gray-500 text-xs">
+                ▼
+              </span>
+            </div>
+          </td>
+          <td class="p-2 border text-center">
+            <div class="relative">
+              <select
+                id={`colorDropdown-status-${index}`}
+                class="w-full h-8 text-sm px-3 border border-gray-300 bg-gray-100 text-gray-700 rounded-md appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+                style="background-image: none;" 
+              >
+                {status.map((status: { name: string; value: string }) => (
+                  <option value={status.value} style={`background-color: ${status.value}; color: black;`}>
+                    {status.name}
+                  </option>
+                ))}
+              </select>
+              <span class="absolute inset-y-0 right-3 flex items-center pointer-events-none text-gray-500 text-xs">
+                ▼
+              </span>
+            </div>
+          </td>
+          <td class="p-2 border text-gray-700 w-1/4">
+            <textarea
+              class="w-full h-full uk-textarea"
+              rows="4"
+              placeholder="Write Text.."
+              aria-label="Textarea"
+            ></textarea>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const priorityDropdowns = [...document.querySelectorAll('[id^="colorDropdown-priority-"]')];
+    const colorDropdowns = [...document.querySelectorAll('[id^="colorDropdown-"]')];
+
+    
+    priorityDropdowns.concat(colorDropdowns).forEach((dropdown) => {
+      if (dropdown instanceof HTMLSelectElement) {
+       
+        dropdown.style.backgroundColor = dropdown.value;
+        dropdown.style.color = 'black';
+
+        dropdown.addEventListener('change', (event) => {
+          const target = event.target as HTMLSelectElement | null;
+          if (target) {
+            target.style.backgroundColor = target.value;
+            target.style.color = 'black';
+          }
+        });
+      }
+    });
+  });
+</script>
+

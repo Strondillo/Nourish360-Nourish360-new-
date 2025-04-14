@@ -1,0 +1,146 @@
+<form class="login-form">
+  
+  <img src="/icons/Nurse.png" alt="Login Icon" class="login-icon mb-12">
+  
+  <label for="username" class="login-label">Username:</label>
+  <input type="text" id="username" name="username" class="login-input" required>
+
+  <label for="email" class="login-label">Email:</label>
+  <input type="email" id="email" name="email" class="login-input" required>
+  
+  <label for="password" class="login-label">Password:</label>
+  <input type="password" id="password" name="password" class="login-input" required>
+  
+  <div class="button-group">
+      <button type="submit" class="login-button">Login</button>
+      <a href="/Signup" class="signup-button">Sign Up</a>
+  </div>
+  
+  <!-- Additional Sign-In Options -->
+  <div class="social-signin">
+    <p class="or">OR WITH</p>
+    <div class="social-icons">
+      <a href="#" class="google-signin">
+        <img src="/icons/Google.png" alt="Sign in with Google" />
+      </a>
+      <a href="#" class="facebook-signin">
+        <img src="/icons/facebook.png" alt="Sign in with Facebook" />
+      </a>
+      <a href="#" class="microsoft-signin">
+        <img src="/icons/Microsoft.png" alt="Sign in with Microsoft" />
+      </a>
+    </div>
+  </div>
+</form>
+
+<style>
+.login-form {
+  max-width: 600px; /* Increased max-width for a wider form */
+  min-width: 350px; /* Optional: Set a minimum width */
+  margin: 50px auto; /* Center the form */
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 55px; /* Updated corner radius */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-icon {
+  width: 60px; /* Adjust the size of the icon */
+  height: 60px;
+}
+
+.login-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #004d40;
+  width: 100%;
+}
+
+.login-input {
+  width: 100%;
+  padding: 8px; /* Adjust padding */
+  margin-bottom: 12px; /* Reduce margin */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 6px;
+  margin-top: 6px;
+}
+
+.login-button, .signup-button {
+  width: 48%;
+  padding: 10px; /* Adjust padding */
+  color: #fff;
+  border-radius: 4px;
+  font-size: 14px; /* Adjust font size */
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: center; /* Center text inside button */
+  text-decoration: none; /* Remove underline from the link */
+  display: inline-block; /* Make the <a> tag behave like a button */
+}
+
+.login-button {
+  background-color: #004d40;
+}
+
+.signup-button {
+  background-color: #00796b;
+}
+
+.login-button:hover {
+  background-color: #00362e;
+}
+
+.signup-button:hover {
+  background-color: #005c4f;
+}
+
+/* Styling for the social sign-in section */
+.social-signin {
+  text-align: center;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.or {
+  margin: 16px 0;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Style the social sign-in icons */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* Reduce gap */
+}
+
+.social-icons a {
+  display: inline-block;
+}
+
+.social-icons img {
+  width: 32px; /* Adjust size as needed */
+  height: auto;
+  border-radius: 50%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.social-icons img:hover {
+  transform: scale(1.1); /* Slightly enlarge the icon on hover */
+}
+</style>

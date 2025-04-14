@@ -1,0 +1,40 @@
+---
+const { name, risk, visits, isNew, profileImage } = Astro.props;
+
+// Normalize the risk level for consistent matching (case insensitive and trimmed)
+const normalizedRisk = risk ? risk.toLowerCase().trim() : '';
+
+// Define the class based on the normalized risk level
+const cardClass =
+  normalizedRisk.includes('low') ? 'bg-green-200' :
+  normalizedRisk.includes('moderate') ? 'bg-yellow-200' :
+  normalizedRisk.includes('high') ? 'bg-red-200' :
+  'bg-gray-200'; // Default color if risk is not specified
+
+const patientSlug = name.toLowerCase().replace(/\s+/g, '-');
+const profileUrl = `/patients/${patientSlug}`;
+---
+
+<a href={profileUrl} class="block transform transition duration-300 hover:scale-105 hover:shadow-lg no-underline">
+  <div class={`w-30 h-30 p-4 rounded-lg shadow-md ${cardClass} flex flex-col justify-between cursor-pointer`}>
+    <div class="flex justify-between items-center mb-2">
+      <img src={profileImage} alt={name} class="w-10 h-10 rounded-full" />
+      {isNew && <span class="text-sm text-blue-600">New</span>}
+    </div>
+    <h3 class="font-bold text-lg mb-1">{name}</h3>
+    <p class="text-sm mb-1">{risk || 'No risk specified'}</p>
+    <p class="text-xs mt-2">{visits ? `Visited - ${visits}` : 'No visits recorded'}</p>
+  </div>
+</a>
+
+<style>
+  /* Remove underline from link and on hover */
+  a.no-underline {
+    text-decoration: none !important;
+    color: inherit;
+  }
+
+  a.no-underline:hover {
+    text-decoration: none !important;
+  }
+</style>

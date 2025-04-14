@@ -1,0 +1,16 @@
+---
+const prescriptions = [
+  { title: "Caloric Intake Prescription" },
+  { title: "Meal Timing Prescription" },
+];
+---
+
+<div class="w-1/2 p-4 border rounded-lg bg-white shadow-sm">
+  <h2 class="font-semibold mb-2">Nutrition Prescription(s):</h2>
+  {prescriptions.map((prescription, index) => (
+    <div class="mb-4">
+      <h3 class="font-semibold">{index + 1}. {prescription.title}:</h3>
+      <textarea class="w-full mt-2 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="3" placeholder="Write a text..."></textarea>
+    </div>
+  ))}
+</div>

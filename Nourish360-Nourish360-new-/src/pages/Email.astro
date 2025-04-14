@@ -1,0 +1,17 @@
+---
+import Layout from "../layouts/Layout.astro"
+import Emaillist from "../components/Email/Emaillist.astro";
+import Emailview from "../components/Email/Emailview.astro";
+---
+<Layout title="Nourish360" isRNDPage={true}>
+    
+        <!-- Main Content -->
+        <div class="flex flex-col flex-1">
+          <div class="flex h-full">
+            <!-- Email List -->
+            <Emaillist />
+            <!-- Email View Pane -->
+            <Emailview />
+          </div>
+        </div>
+</Layout>

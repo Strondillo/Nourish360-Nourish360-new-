@@ -1,0 +1,35 @@
+---
+import Layout from "../layouts/Layout.astro";
+import FilterBar from "../components/FilterBar.astro";
+import PatientInfo from "../components/Cards/PatientInfo.astro";
+import { fetchPatients } from "../utils/fetchPatients";
+import type { Patient } from "../types/Patient";
+
+const patients: Patient[] = await fetchPatients();
+console.log('Patients:', patients);
+---
+
+<Layout title="Nourish360" isDoctorPage={true}>
+    <div class="container mx-auto px-4 py-8 bg-[#FDF9F4] shadow-lg rounded-lg mt-5">
+        <!-- Filter Bar for sorting/filtering options -->
+        <FilterBar />
+
+        <!-- Patient List Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+            {patients.length > 0 ? (
+                patients.map(patient => (
+                    <PatientInfo 
+                        patientId={patient.id} 
+                        name={patient.name} 
+                        risk={patient.risk || 'Low Risk'} 
+                        visits={patient.visits || 1} 
+                        isNew={patient.isNew ? 'New' : ''} 
+                        profileImage={patient.profileImage || '/default-profile.png'} 
+                    />
+                ))
+            ) : (
+                <p class="text-center text-gray-500">No patients found.</p>
+            )}
+        </div>
+    </div>
+</Layout>

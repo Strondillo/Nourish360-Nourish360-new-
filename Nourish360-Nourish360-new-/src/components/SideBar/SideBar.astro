@@ -1,0 +1,264 @@
+---
+const { isLoginPage = false, isSignupPage = false, isSigninPage = false } = Astro.props;
+const { accountType } = Astro.props;
+import SideBarFooter from "./SideBarFooter.astro";
+---
+<button id="toggle-sidebar" class="toggle-btn">☰</button>
+
+<!-- Sidebar Container -->
+<aside id="sidebar" class="sidebar hidden" class={`sidebar ${accountType === 'Doctor' ? 'bg-white' : 'bg-blue-200'} shadow-md w-64 h-screen p-6 fixed top-0 left-0`}> <!-- Add "hidden" class by default -->
+  <div class="sidebar-content">
+    <!-- Logo Section -->
+    <div class="logo">
+      <a href="/" class="no-underline">
+        <img src="/Logo.png" alt="Nourish360 Logo" class="logo-img hover:opacity-80 transition-opacity duration-300" />
+      </a>
+    </div>
+
+    <!-- Navigation Section -->
+    <nav class="navigation flex-grow">
+      <ul>
+
+      {(!accountType) && (
+        <>
+          <li>
+            <a href="/" class={`nav-link ${isLoginPage ? 'active' : ''}`}>
+              🏠 Home
+            </a>
+          </li>
+          <li><a href="/Sign-in" class="nav-link">🔑 Login</a></li>
+          <li><a href="/Signup" class="nav-link">📝 Sign Up</a></li>
+          <li>
+            <a href="/Setting" class="nav-link">
+              ⚙️ Settings
+            </a>
+          </li>
+        </>
+      )}
+
+        <!-- Doctor Menu -->
+        {accountType === 'Rnd' && (
+        <>
+          <li class="nav-section-title">Menu</li>
+          <li>
+            <a href="/Rnd" class={`nav-link ${isLoginPage ? 'active' : ''}`}>
+              🏠 Home
+            </a>
+          </li>
+      
+          <li class="nav-section-title">Service</li>
+          <li>
+            <a href="/Patient" class="nav-link">
+              🩺 Patients
+            </a>
+          </li>
+          <li>
+            <a href="/Email" class="nav-link">
+              📧 Emails
+            </a>
+          </li>
+      
+          <li class="nav-section-title">Help</li>
+          <li>
+            <a href="/Setting" class="nav-link">
+              ⚙️ Settings
+            </a>
+          </li>
+          <li>
+            <a href="/Documentation" class="nav-link">
+              📄 Documentation
+            </a>
+          </li>
+        </>
+      )}
+      
+      {accountType === 'Doctor' && (
+      <>
+        <li class="text-lg font-semibold">Menu</li>
+        <li>
+          <a href="/Doctor" class={`nav-link2 ${isLoginPage ? 'active' : ''}`}>
+            🏠 Home
+          </a>
+        </li>
+        <li class="text-lg font-semibold mt-8">Service</li>
+        <li>
+          <a href="/NutritionScreening" class="nav-link2 hover:bg-yellow-200">
+            🩺 Screening
+          </a>
+        </li>
+        <li>
+          <a href="/Nutritionist" class="nav-link2 hover:bg-yellow-200">
+            🥗 Registered Nutritionist-Dietitian
+          </a>
+        </li>
+        <li><a href="/PatientList" class="nav-link2 hover:bg-yellow-200">🧑‍⚕️ Patients</a></li>
+        <li class="text-lg font-semibold mt-8">Help</li>
+        <li>
+          <a href="/Setting" class="nav-link2 hover:bg-yellow-200">
+            ⚙️ Settings
+          </a>
+        </li>
+      </>
+      )}
+      </ul>
+    </nav>
+
+    <!-- Footer Section -->
+    <div class="sidebar-footer">
+      <SideBarFooter />
+    </div>
+  </div>
+</aside>
+
+
+
+<script>
+  const toggleButton = document.getElementById('toggle-sidebar');
+  const sidebar = document.getElementById('sidebar');
+
+  // Ensure both elements are present before adding event listeners
+  if (toggleButton && sidebar) {
+    toggleButton.addEventListener('click', () => {
+      // Toggle the 'hidden' class to hide/show the sidebar
+      sidebar.classList.toggle('hidden');
+    });
+  } else {
+    console.error('Toggle button or sidebar not found in the DOM.');
+  }
+</script>
+
+<style>
+  /* Sidebar Container */
+  .sidebar {
+  width: 250px;
+  background-color: #FEFEFE;
+  border-right: 1px solid #E0E0E0;
+  height: 100vh;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 10;
+  overflow-y: auto; /* Allow scrolling if content overflows */
+}
+  
+  /* Sidebar is visible when 'hidden' class is removed */
+  .sidebar.hidden {
+    transform: translateX(-100%); /* Sidebar remains hidden when 'hidden' class is applied */
+  }
+
+  /* Sidebar is shown when the 'hidden' class is removed */
+  .sidebar:not(.hidden) {
+    transform: translateX(0); /* Sidebar slides in when 'hidden' class is removed */
+  }
+
+  /* Toggle Button */
+  .toggle-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    z-index: 20;
+  }
+
+  .toggle-btn:hover {
+    background-color: #0056b3; /* Darker shade of blue */
+    transform: scale(1.05); /* Slightly increase size on hover */
+  }
+
+  /* Logo Section */
+  .logo {
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .logo-img {
+    width: 100px;
+    height: auto;
+    border-radius: 50%;
+  }
+
+  /* Navigation Section */
+  .navigation ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .nav-section-title {
+  font-size: 0.9rem;
+  color: #6C757D;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  margin-top: 20px;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
+  .nav-link {
+  text-decoration: none;
+  font-size: 1rem;
+  color: #546070;
+  padding: 12px 10px; /* Adjusted padding for spacing */
+  margin-bottom: 8px; /* Add margin for vertical spacing */
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+  .nav-link2 {
+    text-decoration: none;
+    font-size: 1rem;
+    color: #546070;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease;
+  }
+
+  .nav-link:hover {
+  background-color: #E7F4FE;
+}
+  .nav-link2:hover{
+    background-color: #F2AD45;
+  }
+  .nav-link.active {
+    background-color: #D1E9FF;
+    font-weight: bold;
+  }
+
+  .nav-link.active2 {
+    background-color: #F2AD45;
+    font-weight: bold;
+  }
+
+  
+  /* Sidebar Footer */
+  .user-section {
+    display: flex;
+    align-items: center;
+  }
+
+  .user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .user-name {
+    font-size: 1rem;
+    color: #546070;
+    font-weight: bold;
+  }
+</style>

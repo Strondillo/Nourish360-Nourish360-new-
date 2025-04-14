@@ -1,0 +1,208 @@
+---
+export interface ClinicalConditionProps {
+  formType: string;
+}
+const { formType } = Astro.props;
+---
+
+<div class="clinical-condition">
+  <h2 class="font-bold font-sans mt-5">A. Clinical Condition</h2>
+  <div class="checkbox-grid">
+    {formType === 'adult' ? (
+      <>
+        <!-- Adult specific checkboxes -->
+        <div class="checkbox">
+          <input type="checkbox" id="icu" name="clinical_condition" />
+          <label for="icu">Admission to ICU</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="anorexia" name="clinical_condition" />
+          <label for="anorexia">Anorexia Nervosa/Bulimia Nervosa</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="cachexia" name="clinical_condition" />
+          <label for="cachexia">Cachexia (temporal wasting, muscle wasting, cancer, cardiac)</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="cva" name="clinical_condition" />
+          <label for="cva">Cerebrovascular accident</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="coma" name="clinical_condition" />
+          <label for="coma">Coma</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="GD" name="clinical_condition" />
+          <label for="GD">Diabetes Mellitus/Gestational Diabetes Mellitus </label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="GC" name="clinical_condition" />
+          <label for="GC">Gastrointestinal disease or complication</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="LD" name="clinical_condition" />
+          <label for="LD">Liver disease</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="Mal" name="clinical_condition" />
+          <label for="Mal">Malabsorption (celiac sprue, ulcerativecolitis, Crohn's disease, short bowel syndrome)</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="mt" name="clinical_condition" />
+          <label for="mt">Multiple Trauma (closed head injury, penetrating trauma, multiple fractures)</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="nhw" name="clinical_condition" />
+          <label for="nhw">Non-healing wounds, Pressure Injury</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="otf" name="clinical_condition" />
+          <label for="otf">On tube feeding/parenteral nutrition</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="rd" name="clinical_condition" />
+          <label for="rd">Renal Disease (acute, chronic, undergoing dialysis)</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="sep" name="clinical_condition" />
+          <label for="sep">Sepsis</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="ser" name="clinical_condition" />
+          <label for="ser">Serum albumin 3.5 gm/L</label>
+        </div>
+
+      </>
+    ) : (
+      <>
+        <!-- Pediatric specific checkboxes -->
+        <div class="checkbox">
+          <input type="checkbox" id="icu" name="clinical_condition" />
+          <label for="icu">Admission to ICU</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="anorexia" name="clinical_condition" />
+          <label for="anorexia">Anorexia Nervosa/Bulimia Nervosa</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="cachexia" name="clinical_condition" />
+          <label for="cachexia">Cachexia (temporal wasting, muscle wasting, cancer, cardiac)</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="cva" name="clinical_condition" />
+          <label for="cva">Cerebrovascular accident</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="coma" name="clinical_condition" />
+          <label for="coma">Coma</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="ca" name="clinical_condition" />
+          <label for="ca" class="">Congenital anomalies</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="dm" name="clinical_condition" />
+          <label for="dm">Diabetes Mellitus/Gestational Diabetes Mellitus</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="gas" name="clinical_condition" />
+          <label for="GD" >Gastrointestinal disease or complication/impending GI surgery </label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="iem" name="clinical_condition" />
+          <label for="iem">Inborn errors of metabolism</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="id" name="clinical_condition" />
+          <label for="id">Inflammatory diseases </label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="liv" name="clinical_condition" />
+          <label for="liv">`Liver disease`</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="malb" name="clinical_condition" />
+          <label for="malb">Malabsorption </label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="mtt" name="clinical_condition" />
+          <label for="mtt">Multiple Trauma (closed head injury, penetrating trauma, multiple fractures)</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="nc" name="clinical_condition" />
+          <label for="nc">Neurologically-challenged (e.g. ADHD, Cerebral palsy, seizure disorders, Infantile spasms)</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="otp" name="clinical_condition" />
+          <label for="otp">On tube feeding/parenteral nutrition</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="red" name="clinical_condition" />
+          <label for="red">Renal Disease (acute, chronic, undergoing dialysis)</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="seps" name="clinical_condition" />
+          <label for="seps">Sepsis</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="sera" name="clinical_condition" />
+          <label for="sera">Serum albumin 3.5 gm/L</label>
+        </div>
+      </>
+    )}
+  </div>
+
+  <style>
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* Create 2 equal columns */
+      gap: 1rem; /* Add spacing between the checkboxes */
+      margin-top: 20px;
+    }
+    
+    .checkbox {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    
+    .checkbox input[type="checkbox"] {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #f2ad45;
+      border-radius: 4px;
+      position: relative;
+      cursor: pointer;
+      outline: none;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+    
+    .checkbox input[type="checkbox"]:checked {
+      background-color: #f2ad45;
+      border-color: #f2ad45;
+    }
+    
+    .checkbox input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 6px;
+      width: 5px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+    
+    .checkbox label {
+      margin-left: 20px;
+      font-size: 16px;
+      color: #333;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    
+    </style>
+</div>

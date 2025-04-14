@@ -1,0 +1,21 @@
+---
+const features = [
+  { title: "Feature 1", description: "Description for feature 1" },
+  { title: "Feature 2", description: "Description for feature 2" },
+  { title: "Feature 3", description: "Description for feature 3" },
+];
+---
+
+<section class="features py-20 bg-gray-100 w-full">
+  <div class="container mx-auto text-center">
+    <h2 class="text-3xl font-bold text-teal-900 mb-12">Our Features</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {features.map(feature => (
+        <div class="feature bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl hover:scale-105 transition-transform duration-300 ease-in-out">
+          <h3 class="text-xl font-semibold text-teal-900 mb-4">{feature.title}</h3>
+          <p class="text-gray-600">{feature.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

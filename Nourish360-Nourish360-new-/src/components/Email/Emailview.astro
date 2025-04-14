@@ -1,0 +1,34 @@
+---
+const selectedEmail = {
+  subject: "UX Design: Design Trends 2016",
+  content: `
+Well now that we have had time to reflect on the design trends of 2015 from start to finish, we have compiled which UX/UI Design Trends that we think will prevail in 2016.
+
+"Design is not just how it looks and feels. Design is how it works" - Steve Jobs.
+  `,
+  url: "https://opsinlab.com/ux-design-trends-2016",
+  comments: "24 unread",
+};
+---
+
+<div class="bg-white w-2/5 h-full p-6 shadow-lg">
+  <!-- Featured Image Placeholder -->
+  <div class="border-dashed border-2 border-gray-300 rounded-lg p-6 text-center mb-6">
+    <p class="text-gray-500">Drag Featured Image</p>
+  </div>
+
+  <!-- URL Section -->
+  <label class="block mb-2 text-gray-600 font-semibold">URL:</label>
+  <input type="text" value={selectedEmail.url} class="uk-input mb-4" readonly />
+
+  <!-- Text Area -->
+  <textarea class="uk-textarea mb-4" rows="6" placeholder="Write a text...">
+{selectedEmail.content}
+  </textarea>
+
+  <!-- Comments and Republish Button -->
+  <div class="flex items-center justify-between mb-4">
+    <span class="text-gray-500">COMMENTS ({selectedEmail.comments})</span>
+    <button class="uk-button uk-button-primary bg-green-500 text-white rounded-full px-6">Republish</button>
+  </div>
+</div>

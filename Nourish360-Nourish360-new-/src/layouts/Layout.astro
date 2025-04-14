@@ -1,0 +1,152 @@
+---
+import Footer from "../components/Footer.astro";
+import Sidebar from "../components/Sidebar.astro";
+
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  isLoginPage?: boolean;
+  isSignupPage?: boolean;
+  isSigninPage?: boolean;
+  isRNDPage?: boolean;
+  isDoctorPage?: boolean;
+  isHomePage?: boolean;
+}
+
+const {
+  title,
+  description = "Emphasizes a holistic, technology-enabled approach to the entire Nutrition Care Process",
+  image = "/images/band.jpg",
+  isLoginPage = false,
+  isSignupPage = false,
+  isSigninPage = false,
+  isRNDPage = false,
+  isDoctorPage = false,
+  isHomePage = false
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@700&display=swap" />
+    <meta property="og:image" content={image} />
+    <title>{title}</title>
+  </head>
+
+  <body class={`min-h-screen flex flex-col ${isLoginPage || isSignupPage || isSigninPage ? 'page-background' : ''} ${isHomePage ? 'landing-page-background' : ''}`}>
+    
+    {isDoctorPage ? (
+      <Sidebar accountType="Doctor" />
+    ) : isRNDPage ? (
+      <Sidebar accountType="Rnd" />
+    ) : null}
+
+    {isLoginPage || isSignupPage || isSigninPage ? (
+      <div class="header-container">
+        <a href="/" class="block text-center no-underline">
+          <h1 class="text-6xl text-teal-900 font-bold">Nourish360</h1>
+        </a>
+        {isLoginPage ? <p class="header-text">login</p> : null}
+        {isSignupPage ? <p class="header-text">Sign-up</p> : null}
+        {isSigninPage ? <p class="header-text">Sign-in</p> : null}
+      </div>
+    ) : null}
+
+    {isHomePage ? (
+      <div class="landing-page">
+        <slot />
+      </div>
+    ) : (
+      <main class="content-container flex-1">
+        <slot />
+      </main>
+    )}
+    <Footer />
+  </body>
+</html>
+
+<style>
+  /* Page background for Login, Signup, and Sign-in pages */
+  .page-background {
+    background: linear-gradient(to right, #F2AD45 50%, #E6E8EA 50%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Landing page background */
+  .landing-page-background {
+    background-color: #f7fafc; /* Match the color from the picture */
+  }
+
+  /* Header styling */
+  .header-container {
+    margin-top: 50px;
+    position: relative;
+    font-family: 'MuseoModerno', sans-serif;
+    text-align: center;
+  }
+
+  .header-text {
+    position: absolute;
+    font-family: 'MuseoModerno', sans-serif;
+    font-weight: 700;
+    top: 55px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .content-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+  }
+
+  .content-container > * {
+    max-width: 925px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Landing page specific styling */
+  .landing-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+  }
+
+  /* Adjusting components appearance for the landing page */
+  .landing-page h1 {
+    font-size: 4rem;
+    color: #004d40; /* Adjust text color as per image */
+  }
+
+  .landing-page p {
+    font-size: 1.25rem;
+    color: #666;
+  }
+
+  .landing-page a {
+    background-color: #004d40; /* Adjust button color as per image */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+  }
+
+  .landing-page a:hover {
+    background-color: #003833;
+  }
+</style>

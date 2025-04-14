@@ -1,0 +1,37 @@
+---
+// Import the necessary components
+import NutritionalScreening from "../../components/NutritionScreening/NutritionalScreening.astro";
+import Layout from "../../layouts/Layout.astro";
+// Export the getStaticPaths function
+export function getStaticPaths() {
+    return [
+        { params: { formType: 'adult' } },
+        { params: { formType: 'pediatric' } },
+    ];
+}
+
+// Get the formType from the URL parameters
+const { formType } = Astro.params;
+---
+
+<Layout title="Nourish360" isDoctorPage={true}>
+    <div class="main-content">
+        
+        {formType === 'adult' || formType === 'pediatric' ? (
+            <div class="form-container">
+                <NutritionalScreening formType={formType} />
+            </div>
+        ) : (
+            <p>Please select a valid form type.</p>
+        )}
+    </div>
+
+    <style>
+        .main-content {
+            padding: 30px;
+            background-color: white;
+            width: 100%;
+            margin-left: 20px;
+        }
+    </style>
+</Layout>

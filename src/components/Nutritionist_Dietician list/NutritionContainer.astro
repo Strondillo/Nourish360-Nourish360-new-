@@ -1,0 +1,17 @@
+---
+import NutritionCarList from "./NutritionCarList.astro"
+---
+<div class="container mx-auto px-4 py-8 bg-[#FDF9F4] shadow-lg rounded-lg mt-5">
+    <h2 class="text-2xl font-bold mb-8">Nutritionist–Dietitian details</h2>
+
+    <!-- Search and Filter Section -->
+    <div class="flex justify-between items-center mb-8">
+      <input type="text" placeholder="Search by name" class="p-2 bg-gray-200 rounded-lg w-64">
+      <button class="flex items-center p-2 bg-yellow-300 rounded-lg hover:bg-yellow-400 ">
+        <img src="icons/filter.png" alt="Filter" class="w-4 h-4 mr-1">
+        <span>Filter</span>
+      </button>
+    </div>
+
+    <NutritionCarList />
+</div>

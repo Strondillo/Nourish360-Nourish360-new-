@@ -1,0 +1,107 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { fetchPatients } from "../../utils/fetchPatients";
+import type { Patient } from "../../types/Patient";
+
+// Define getStaticPaths to generate paths for each patient
+export async function getStaticPaths() {
+  // Helper function to create slugs from names within the scope of getStaticPaths
+  function createSlug(name: string): string {
+    return name.toLowerCase().replace(/\s+/g, '-');
+  }
+
+  const patients: Patient[] = await fetchPatients();
+
+  // Use createSlug within getStaticPaths
+  return patients.map((patient) => ({
+    params: { patient: createSlug(patient.name) },
+  }));
+}
+
+// Get the patient's slug from the URL parameters
+const { patient } = Astro.params;
+
+// Define createSlug again in the main scope
+function createSlug(name: string): string {
+  return name.toLowerCase().replace(/\s+/g, '-');
+}
+
+// Fetch all patients and find the matching one based on the slug
+let selectedPatient: Patient | null = null;
+try {
+  const patients: Patient[] = await fetchPatients();
+  selectedPatient = patients.find(p => createSlug(p.name) === patient) || null;
+} catch (error) {
+  console.error("Error fetching patient data:", error);
+}
+
+if (!selectedPatient) {
+  throw new Error(`Patient "${patient}" not found.`);
+}
+
+
+const normalizedRisk = selectedPatient.risk ? selectedPatient.risk.toLowerCase().trim() : '';
+
+// Determine the risk color class
+const riskClass =
+  normalizedRisk.includes('low') ? 'bg-green-200' :
+  normalizedRisk.includes('moderate') ? 'bg-yellow-200' :
+  normalizedRisk.includes('high') ? 'bg-red-200' :
+  'bg-gray-200'; 
+
+---
+
+<Layout title={`${selectedPatient.name} Overview`}>
+  <div class="container mx-auto px-4 py-8 bg-[#FDF9F4] shadow-lg rounded-lg mt-5">
+    <!-- Profile Header -->
+    <div class={`flex flex-col lg:flex-row items-center gap-6 p-6 rounded-lg shadow-md ${riskClass}`}>
+      <img src={selectedPatient.profileImage || '/default-profile.png'} alt={`${selectedPatient.name}'s Profile`} class="w-32 h-32 rounded-full shadow-md" />
+      <div class="text-center lg:text-left">
+        <h2 class="text-3xl font-bold">{selectedPatient.name}</h2>
+        <p class="text-gray-700 mt-2"><strong>Age:</strong> {selectedPatient.age}</p>
+        <p class="text-gray-700"><strong>Gender:</strong> {selectedPatient.gender}</p>
+        <p class="mt-4 inline-block px-4 py-2 rounded-full font-medium">{selectedPatient.risk}</p>
+      </div>
+    </div>
+
+    <!-- Detailed Information -->
+    <div class="mt-6 grid gap-6 lg:grid-cols-2">
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">General Information</h3>
+        <p><strong>Occupation:</strong> {selectedPatient.occupation}</p>
+        <p><strong>Diagnosis:</strong> {selectedPatient.diagnosis}</p>
+        <p><strong>Birthday:</strong> {selectedPatient.birthday}</p>
+        <p><strong>Visits:</strong> {selectedPatient.visits}</p>
+        <p><strong>New Patient:</strong> {selectedPatient.isNew ? 'Yes' : 'No'}</p>
+      </div>
+
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">Physical Metrics</h3>
+        <p><strong>Weight:</strong> {selectedPatient.weight} kg</p>
+        <p><strong>Height:</strong> {selectedPatient.height} cm</p>
+        <p><strong>BMI:</strong> {selectedPatient.bmi}</p>
+        <p><strong>Estimated Energy Intake:</strong> {selectedPatient.estimated_energy_intake} kcal</p>
+      </div>
+    </div>
+
+    <!-- Additional Information -->
+    <div class="mt-6 bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-xl font-semibold text-gray-800 mb-4">Additional Information</h3>
+      <p><strong>Physical Activity:</strong> {selectedPatient.physical_activity}</p>
+      <p><strong>Meals:</strong> {selectedPatient.meals}</p>
+      <div class="mt-4">
+        <h4 class="text-lg font-medium">Motivation Scores</h4>
+        <p><strong>Importance:</strong> {selectedPatient.motivation_importance}</p>
+        <p><strong>Confidence:</strong> {selectedPatient.motivation_confidence}</p>
+        <p><strong>Readiness:</strong> {selectedPatient.motivation_readiness}</p>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="mt-6 flex justify-between">
+      <button onclick="history.back()" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300">
+        Back
+      </button>
+    </div>
+  </div>
+</Layout>

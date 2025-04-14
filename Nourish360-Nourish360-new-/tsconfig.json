@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "esnext", 
+    "module": "esnext", 
+    "jsx": "preserve", // Needed for Astro's JSX/TSX support
+    "jsxImportSource": "astro", // For better Astro compatibility with JSX
+    "strict": true, // Enables strict type-checking options
+    "types": ["astro/client"], // Include Astro-specific types
+    "moduleResolution": "node", // Resolve modules in Node.js style
+    "esModuleInterop": true, // Allow default imports from CommonJS modules
+    "skipLibCheck": true, // Skip checking type definitions of libraries
+    "forceConsistentCasingInFileNames": true, // Prevents issues with file name casing
+    "allowSyntheticDefaultImports": true // Allow default imports from modules without them
+  },
+  "include": ["src/**/*"], // Include all files in the src directory
+  "exclude": ["node_modules", "dist"] // Exclude unnecessary files
+}

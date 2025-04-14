@@ -1,0 +1,21 @@
+---
+const emails = [
+  { title: "UX Design: Design Trends 2016", published: "12/1/16", updated: "22 Hours Ago" },
+  { title: "2015 - Year in Review", published: "12/29/15", updated: "3 Days Ago" },
+  { title: "Design Awards: Best Designs of 2015", published: "12/28/15", updated: "4 Days Ago" },
+  { title: "Spotlight: Joe Roberto, UI Design", published: "12/22/15", updated: "7 Days Ago" },
+  { title: "Mobile Application Design - 101", published: "12/18/15", updated: "13 Days Ago" },
+];
+---
+
+<div class="bg-white w-2/5 h-full overflow-y-auto shadow-lg border-r p-4">
+  <h2 class="text-lg font-semibold text-gray-800 mb-4">Inbox</h2>
+  <ul class="space-y-4">
+    {emails.map((email, index) => (
+      <li class={`p-4 rounded-lg cursor-pointer ${index === 0 ? 'bg-blue-100' : 'hover:bg-gray-100'}`}>
+        <h3 class="font-semibold text-gray-800">{email.title}</h3>
+        <p class="text-sm text-gray-500">Published: {email.published} · Updated: {email.updated}</p>
+      </li>
+    ))}
+  </ul>
+</div>

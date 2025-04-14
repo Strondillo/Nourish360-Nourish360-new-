@@ -1,0 +1,31 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Nourish360" isDoctorPage={true}>
+    <div class="main-content flex flex-col items-center">
+        <h1 class="text-2xl font-bold mb-6 text-center">Nutritional Screening/Referral Tool</h1>
+
+        <div class="card-container flex gap-4 mb-6">
+            <div class="card border border-gray-300 p-4 text-center bg-gray-100 rounded-lg shadow-lg w-64">
+                <h2 class="text-lg mb-2">Adult admission</h2>
+                
+                <a href="/Nutrition/adult">
+                    <button type="button" class="px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-400">
+                        Adult
+                    </button>
+                </a>
+            </div>
+
+            <div class="card border border-gray-300 p-4 text-center bg-gray-100 rounded-lg shadow-lg w-64">
+                <h2 class="text-lg mb-2">Pediatric admission</h2>
+                <a href="/Nutrition/pediatric">
+                    <button type="button" class="px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-400">
+                        Pediatric
+                    </button>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</Layout>

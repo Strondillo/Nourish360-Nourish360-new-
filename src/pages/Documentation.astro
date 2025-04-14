@@ -1,0 +1,43 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { fetchPatients } from "../utils/fetchPatients"; // Utility function to fetch patient data
+import type { Patient } from "../types/Patient"; // Patient type definition
+import Info from "../components/Info.astro"; // Patient Info card component
+
+// Fetch the patient data from Strapi
+const patients: Patient[] = await fetchPatients();
+
+console.log("Fetched Patients:", patients); // Log the patients for debugging
+---
+
+<Layout title="Nourish360" isRNDPage={true}> 
+  <div class="container mx-auto px-4 py-8">
+    <!-- Page Title -->
+    <h1 class="text-4xl font-bold text-gray-800 mb-8 text-center">Patient List</h1>
+    
+    <!-- Display Patients -->
+    {patients.length > 0 ? (
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {patients.map((patient: Patient) => (
+          <Info
+            key={patient.id}
+            patientId={patient.id}
+            name={patient.name}
+            age={patient.age}
+            diagnosis={patient.diagnosis}
+            gender={patient.gender}
+            occupation={patient.occupation}
+            birthday={patient.birthday}
+            risk={patient.visits}
+            risk={patient.risk}
+            isNew={patient.isNew}
+            profileImage={patient.profileImage} // Pass the profileImage property
+          />
+        ))}
+      </div>
+    ) : (
+      // Message if no patients are found
+      <p class="text-gray-500 text-center mt-10">No patients found.</p>
+    )}
+  </div>
+</Layout>

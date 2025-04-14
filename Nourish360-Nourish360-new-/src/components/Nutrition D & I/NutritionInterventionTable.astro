@@ -1,0 +1,88 @@
+<div class="p-4 border rounded-lg bg-white shadow-md">
+    <h2 class="text-xl font-semibold mb-4 text-gray-800">Nutrition Intervention:</h2>
+    <table class="w-full border-collapse border border-blue-300 rounded-lg overflow-hidden">
+        <!-- Row for Specific Nutrition Interventions Header -->
+        <thead>
+        <tr>
+          <td colspan="4" class="p-2 border text-center bg-gray-200 font-semibold text-gray-700">Specific Nutrition Intervention(s)</td>
+        </tr>
+        </thead>
+        
+          <tr>
+            <th class="p-2 border text-center bg-gray-100 text-gray-700 w-1/4">Domain</th>
+            <th class="p-2 border text-center bg-gray-100 text-gray-700 w-1/4">Desciption</th>
+          </tr>
+
+      </tbody>
+
+      <!-- Placeholder for dynamically added rows for Specific Nutrition Intervention(s) -->
+      <tbody id="interventions-body">
+      </tbody>
+    </table>
+  
+    <div class="flex justify-center gap-4 mt-4">
+        <!-- Add Row Button -->
+        <button id="add-row-button" class="px-4 py-2 border border-gray-300 rounded-full text-gray-600 hover:bg-gray-200">
+          +
+        </button>
+    
+        <!-- Delete Row Button -->
+        <button id="delete-row-button" class="px-4 py-2 border border-gray-300 rounded-full text-gray-600 hover:bg-gray-200">
+          -
+        </button>
+      </div>
+    </div>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const interventionsBody = document.getElementById("interventions-body");
+      const addRowButton = document.getElementById("add-row-button");
+      const deleteRowButton = document.getElementById("delete-row-button");
+  
+      // Function to create a new row for Specific Nutrition Intervention(s)
+      function createInterventionRow() {
+        const row = document.createElement("tr");
+        row.classList.add("hover:bg-gray-50");
+        row.innerHTML = `
+          <td class="p-2 border bg-gray-50 text-gray-700 w-1/4">
+            <select class="w-full p-2 border border-gray-300 rounded-md focus:outline-none">
+              <option>Select Domain</option>
+              <option>Food and/or Nutrient Delivery</option>
+              <option>Nutrition Counseling</option>
+              <option>Behavioral Environmental</option>
+              <option>Coordination of Nutrition Care by  a Nutrition Care Professional</option>
+              <option>Population Based Nutrition Action</option>
+              <option>Nutrition Intervention Encounter Context</option>
+              <option>Other</option>
+            </select>
+          </td>
+          <td class="p-2 border text-gray-700 w-1/4">
+            <textarea
+          class="w-full p-3 border border-gray-300 rounded-md bg-white"
+          placeholder="Write a text..."
+        ></textarea></td> 
+        `;
+        return row;
+      }
+  
+      // Add a row to the Specific Nutrition Intervention(s) section
+      if (addRowButton && interventionsBody) {
+        addRowButton.addEventListener("click", () => {
+          const newRow = createInterventionRow();
+          interventionsBody.appendChild(newRow);
+        });
+      }
+  
+      // Delete the last row from the Specific Nutrition Intervention(s) section
+      if (deleteRowButton && interventionsBody) {
+        deleteRowButton.addEventListener("click", () => {
+          // Check if there is a last element child before attempting to remove it
+          const lastChild = interventionsBody.lastElementChild;
+          if (lastChild) {
+            interventionsBody.removeChild(lastChild);
+          }
+        });
+      }
+    });
+  </script>
+  

@@ -1,0 +1,33 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import AssessmentCard from "../../components/Cards/AssessmentCard.astro";
+---
+
+<Layout title="Nourish360" isRNDPage={true}>
+    <div class="bg-[#EDF9FF] flex flex-col items-center justify-center min-h-screen w-full bg-gradient-to-r">
+        <div class="text-center max-w-2xl">
+            <h1 class="text-5xl font-extrabold text-gray-800 mb-4">Nutrition Care Process</h1>
+            <p class="text-lg text-gray-600 mb-8">Select a category to view detailed information</p>
+            
+            <div class="flex flex-wrap gap-8 justify-center">
+                <AssessmentCard 
+                    title="Nutrition Assessment" 
+                    buttonText="View Details" 
+                    link="/NutritionAssessment"
+                />
+                <AssessmentCard 
+                    title="Nutrition Diagnosis & Intervention" 
+                    buttonText="View Details" 
+                    link="/NutritionD&I"
+                />
+                <AssessmentCard 
+                    title="Nutrition Evaluation and Monitoring" 
+                    buttonText="View Details" 
+                    link="/NutritionMonitoring"
+                />
+            </div>
+        </div>
+
+        
+    </div>
+</Layout>

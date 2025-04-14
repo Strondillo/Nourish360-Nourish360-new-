@@ -1,0 +1,135 @@
+---
+import {
+  Chart as ChartJS,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  ArcElement,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+ChartJS.register(
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  ArcElement,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Legend
+);
+import PrintButton from './PrintButton.astro';
+---
+
+<div class="p-6">
+  <div class="flex justify-center items-center gap-4 mb-8">
+    <select
+      id="graph-select"
+      class="p-2 border rounded-md focus:outline-none"
+    >
+      <option value="">Select a graph</option>
+      <option value="bar">Bar Chart</option>
+      <option value="pie">Pie Chart</option>
+      <option value="doughnut">Doughnut Chart</option>
+      <option value="line">Line Chart</option>
+    </select>
+    <select
+      id="dataset-select"
+      class="p-2 border rounded-md focus:outline-none"
+    >
+      <option value="">Select a dataset</option>
+      <option value="intake">Energy Intake</option>
+      <option value="macronutrients">Macronutrient Distribution</option>
+    </select>
+    <button
+      id="show-graph"
+      class="px-4 py-2 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600"
+    >
+      Show
+    </button>
+    <button
+      id="print-button"
+      class="px-4 py-2 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600"
+    >
+      Print
+      <PrintButton />
+    </button>
+  </div>
+  <div id="graph-container" class="bg-white rounded-lg shadow p-4 min-h-[400px] flex justify-center items-center">
+    <p class="text-gray-500" id="placeholder">Select a graph type and click "Show" to display it here.</p>
+  </div>
+</div>
+
+<script>
+  import Chart from 'chart.js/auto';
+  import { graphData, graphOptions } from '../../config/graph-config';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const graphSelect = document.getElementById('graph-select') as HTMLSelectElement | null;
+    const datasetSelect = document.getElementById('dataset-select') as HTMLSelectElement | null;
+    const showGraphButton = document.getElementById('show-graph') as HTMLButtonElement | null;
+    const graphContainer = document.getElementById('graph-container') as HTMLDivElement | null;
+    const placeholder = document.getElementById('placeholder') as HTMLParagraphElement | null;
+
+    // Ensure all elements are properly checked
+    if (!graphSelect || !datasetSelect || !showGraphButton || !graphContainer || !placeholder) {
+      console.error('One or more elements are missing from the DOM.');
+      return;
+    }
+
+    let chartInstance: Chart | null = null; // Explicitly type `chartInstance`
+
+    showGraphButton.addEventListener('click', () => {
+      const selectedGraph = graphSelect.value as keyof typeof graphData;
+      const selectedDataset = datasetSelect.value as 'intake' | 'macronutrients';
+
+      // Validate graph and dataset selection
+      if (!selectedGraph) {
+        placeholder.textContent = 'Please select a valid graph type.';
+        return;
+      }
+
+      if (!selectedDataset) {
+        placeholder.textContent = 'Please select a valid dataset.';
+        return;
+      }
+
+      placeholder.textContent = '';
+
+      // Clear existing chart
+      if (chartInstance) {
+        chartInstance.destroy();
+        chartInstance = null;
+      }
+
+      graphContainer.innerHTML = '<canvas id="chart"></canvas>';
+      const canvas = document.getElementById('chart') as HTMLCanvasElement | null;
+
+      if (!canvas) {
+        console.error('Canvas element not created.');
+        return;
+      }
+
+      const ctx = canvas.getContext('2d');
+      if (!ctx) {
+        console.error('Failed to get canvas context.');
+        return;
+      }
+
+      // Dynamically switch datasets
+      const dataKey = selectedDataset === 'intake' ? 'bar' : 'pie';
+
+      try {
+        chartInstance = new Chart(ctx, {
+          type: selectedGraph,
+          data: graphData[dataKey], // Switch dataset dynamically
+          options: graphOptions,
+        });
+      } catch (error) {
+        console.error('Error creating the chart:', error);
+      }
+    });
+  });
+</script>

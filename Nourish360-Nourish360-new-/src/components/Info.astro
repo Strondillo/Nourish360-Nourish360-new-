@@ -1,0 +1,36 @@
+---
+const { patientId, name, age, diagnosis, gender, occupation, birthday, risk, visits, isNew, profileImage } = Astro.props;
+
+// Define a CSS class for the risk level
+const normalizedRisk = risk ? risk.toLowerCase().trim() : '';
+const riskClass = normalizedRisk === 'low risk' ? 'bg-green-200' :
+                  normalizedRisk === 'moderate risk' ? 'bg-yellow-200' :
+                  normalizedRisk === 'high risk' ? 'bg-red-200' :
+                  'bg-gray-200'; // Default color if risk is not specified
+
+// Patient detail page URL
+const profileUrl = `/patients/${patientId}`;
+---
+<a href={profileUrl} class="block transform transition duration-300 hover:scale-105 hover:shadow-lg no-underline">
+  <div class={`w-30 h-30 p-4 rounded-lg shadow-md ${riskClass} flex flex-col justify-between cursor-pointer`}>
+    <div class="flex justify-between items-center mb-2">
+      <img src={profileImage || '/default-profile.png'} alt={`${name}'s profile`} class="w-10 h-10 rounded-full" />
+      {isNew && <span class="text-sm text-blue-600">New</span>}
+    </div>
+    <h3 class="font-bold text-lg mb-1">{name}</h3>
+    <p class="text-sm mb-1">{risk}</p>
+    <p class="text-xs mt-2">Visited - {visits}</p>
+  </div>
+</a>
+
+<style>
+  /* Remove underline from link and on hover */
+  a.no-underline {
+    text-decoration: none !important;
+    color: inherit;
+  }
+
+  a.no-underline:hover {
+    text-decoration: none !important;
+  }
+</style>

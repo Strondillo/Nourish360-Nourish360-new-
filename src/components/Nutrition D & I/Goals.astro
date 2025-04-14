@@ -1,0 +1,32 @@
+---
+const goals = [
+  { text: "Gradually reduce daily caloric...", status: "Resolved" },
+  { text: "Set a target weight...", status: "In-progress" },
+  { text: "Gradually reduce beer intake...", status: "In-progress" },
+];
+---
+
+<div class="p-4 border rounded-lg bg-white shadow-md h-full">
+  <h2 class="font-semibold mb-4">Goals/Aim:</h2>
+  <table class="w-full border border-gray-300 rounded-lg">
+    <thead>
+      <tr class="bg-gray-100">
+        <th class="text-left px-4 py-2 font-semibold">Goal</th>
+      </tr>
+    </thead>
+    <tbody>
+      {goals.map((goal, index) => (
+        <tr class="border-t">
+          <!-- Goal Text -->
+          <td class="px-4 py-2 text-gray-700">
+            <input
+              type="text"
+              class="uk-input uk-border-rounded w-full p-2 border border-gray-300 rounded"
+              placeholder="Enter goal..."
+            />
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

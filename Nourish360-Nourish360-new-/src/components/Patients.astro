@@ -1,0 +1,108 @@
+---
+import { fetchPatients } from "../utils/fetchPatients"; // Adjust the import path based on your project structure
+import type { Patient } from "../types/Patient";
+
+// Fetch patient data from Strapi
+const patients: Patient[] = await fetchPatients();
+---
+
+<div class="container mx-auto p-6">
+  <h1 class="text-2xl font-bold mb-6">Patient Record Details</h1>
+  
+  <!-- Action Buttons & Search -->
+  <div class="flex justify-between items-center mb-6">
+    <div>
+      <button class="bg-blue-400 hover:bg-blue-500 text-white px-4 py-2 mr-2 rounded">
+        <span class="mr-2">&#9993;</span> Send email
+      </button>
+      <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+        <span class="mr-2">&#43;</span> Add Patient
+      </button>
+    </div>
+    <div>
+      <input type="text" placeholder="Search" class="px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+    </div>
+  </div>
+
+  <!-- Patient Table Container -->
+  <div class="overflow-x-auto border border-gray-300 rounded-lg shadow-md">
+    <table class="min-w-full bg-white">
+      <thead>
+        <tr>
+          <th class="py-2 px-4 bg-gray-200 font-semibold text-gray-700">ID</th>
+          <th class="py-2 px-4 bg-gray-200 font-semibold text-gray-700">Patient's Name</th>
+          <th class="py-2 px-4 bg-gray-200 font-semibold text-gray-700">Risk Level</th>
+          <th class="py-2 px-4 bg-gray-200 font-semibold text-gray-700">Visits</th>
+          <th class="py-2 px-4 bg-gray-200 font-semibold text-gray-700">Status</th>
+          <th class="py-2 px-4 bg-gray-200 font-semibold text-gray-700">Assigned Doctor</th>
+          <th class="py-2 px-4 bg-gray-200 font-semibold text-gray-700">Monitoring</th>
+        </tr>
+      </thead>
+      <tbody>
+        {patients.length > 0 ? (
+          patients.map((patient) => {
+            const profileUrl = `/patients/${patient.id}`; // Adjust URL if you're using slugs instead of IDs
+
+            // Normalize the risk level for consistent styling
+            const normalizedRisk = patient.risk?.toLowerCase().trim();
+            const riskClass = normalizedRisk === "high risk"
+              ? "bg-red-500 text-white"
+              : normalizedRisk === "moderate risk"
+              ? "bg-yellow-300 text-black"
+              : "bg-green-500 text-white";
+
+            return (
+              <tr 
+                class="hover:bg-gray-100 cursor-pointer" 
+                onclick={`location.href='${profileUrl}'`}
+              >
+                <td class="py-2 px-4 border-b border-gray-300 text-center">{patient.id}</td>
+                <td class="py-2 px-4 border-b border-gray-300 text-center">
+                  <div class="flex items-center">
+                    <img src={patient.profileImage || '/default-profile.png'} alt={patient.name} class="w-8 h-8 rounded-full mr-2" />
+                    {patient.name}
+                  </div>
+                </td>
+                <td class="py-2 px-4 border-b border-gray-300 text-center">
+                  <span class={`px-2 py-1 rounded-full ${riskClass}`}>
+                    {patient.risk || "Unknown"}
+                  </span>
+                </td>
+                <td class="py-2 px-4 border-b border-gray-300 text-center">{patient.visits || "N/A"}</td>
+                <td class="py-2 px-4 border-b border-gray-300 text-center">{patient.status || "N/A"}</td>
+                <td class="py-2 px-4 border-b border-gray-300 text-center">{patient.assignedDoctor || "N/A"}</td>
+                <td class="py-2 px-4 border-b border-gray-300 text-center">
+                  {patient.monitoring ? (
+                    <span class="text-green-500 font-semibold">Yes</span>
+                  ) : (
+                    <span class="text-red-500 font-semibold">No</span>
+                  )}
+                </td>
+              </tr>
+            );
+          })
+        ) : (
+          <tr>
+            <td colspan="7" class="text-center py-4 text-gray-500">No patients found.</td>
+          </tr>
+        )}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="flex justify-between items-center mt-6">
+    <div>
+      <button class="text-gray-500 hover:text-gray-700">&#9664;</button>
+      <span class="mx-2">1-20 of {patients.length}</span>
+      <button class="text-gray-500 hover:text-gray-700">&#9654;</button>
+    </div>
+    <div>
+      <select class="px-4 py-2 border border-gray-300 rounded focus:outline-none">
+        <option>5 rows</option>
+        <option>10 rows</option>
+        <option>20 rows</option>
+      </select>
+    </div>
+  </div>
+</div>

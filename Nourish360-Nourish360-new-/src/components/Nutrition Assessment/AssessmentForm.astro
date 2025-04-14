@@ -1,0 +1,238 @@
+---
+// components/AssessmentForm.astro
+const { formData } = Astro.props;
+---
+<div class="space-y-6 bg-white rounded-lg shadow p-6">
+    <!-- Client History Section -->
+    <div class="relative p-4">
+        <h3 class="font-bold text-lg mb-3">Client History (CH)</h3>
+        <textarea 
+            class="uk-textarea w-full p-2 border rounded" 
+            rows="4"
+        >{formData.clientHistory}</textarea>
+        <button
+        uk-toggle="target: #edit-modal"
+        type="button"
+        class="absolute top-2 right-2 text-blue-500 hover:text-blue-700"
+        onclick="updateModalTitle('Client History (CH)')"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M17.414 2.586a2 2 0 010 2.828L8.414 14.414 5 15l.586-3.414L14.586 2.586a2 2 0 012.828 0z" />
+      </svg>
+    </button>
+      </div>
+      
+
+    <!-- Food/Nutrition Section -->
+    <div class="relative p-4">
+        <h3 class="font-bold text-lg mb-3">Food/Nutrition-Related History (FH)</h3>
+        <textarea 
+            class="uk-textarea w-full p-2 border rounded" 
+            rows="4"
+        >{formData.foodNutrition}</textarea>
+        <button
+        uk-toggle="target: #edit-modal"
+        type="button"
+        class="absolute top-2 right-2 text-blue-500 hover:text-blue-700"
+        onclick="updateModalTitle('Food/Nutrition-Related History (FH)')"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M17.414 2.586a2 2 0 010 2.828L8.414 14.414 5 15l.586-3.414L14.586 2.586a2 2 0 012.828 0z" />
+      </svg>
+    </button>
+    </div>
+
+    <!-- Biochemical Data Section -->
+    <div class="relative p-4">
+        <h3 class="font-bold text-lg mb-3">Biochemical Data (BD)</h3>
+        <textarea 
+            class="uk-textarea w-full p-2 border rounded" 
+            rows="4"
+        >{formData.biochemicalData}</textarea>
+        <button
+        uk-toggle="target: #edit-modal"
+        type="button"
+        class="absolute top-2 right-2 text-blue-500 hover:text-blue-700"
+        onclick="updateModalTitle('Biochemical Data (BD)')"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M17.414 2.586a2 2 0 010 2.828L8.414 14.414 5 15l.586-3.414L14.586 2.586a2 2 0 012.828 0z" />
+      </svg>
+    </button>
+    </div>
+
+    <!-- Anthropometric Measurements Section -->
+    <div class="relative p-4">
+        <h3 class="font-bold text-lg mb-3">Anthropometric Measurements (AD)</h3>
+        <textarea 
+            class="uk-textarea w-full p-2 border rounded" 
+            rows="4"
+        >{formData.anthropometric}</textarea>
+        <button
+        uk-toggle="target: #edit-modal"
+        type="button"
+        class="absolute top-2 right-2 text-blue-500 hover:text-blue-700"
+        onclick="updateModalTitle('Anthropometric Measurements (AD)')"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M17.414 2.586a2 2 0 010 2.828L8.414 14.414 5 15l.586-3.414L14.586 2.586a2 2 0 012.828 0z" />
+      </svg>
+    </button>
+    </div>
+
+    <!-- Nutrition-Focused Physical Findings Section -->
+    <div class="relative p-4">
+        <h3 class="font-bold text-lg mb-3">Nutrition-Focused Physical Findings (PD)</h3>
+        <textarea 
+            class="uk-textarea w-full p-2 border rounded" 
+            rows="4"
+        >{formData.physicalFindings}</textarea>
+        <button
+        uk-toggle="target: #edit-modal"
+        type="button"
+        class="absolute top-2 right-2 text-blue-500 hover:text-blue-700"
+        onclick="updateModalTitle('Nutrition-Focused Physical Findings (PD)')"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M17.414 2.586a2 2 0 010 2.828L8.414 14.414 5 15l.586-3.414L14.586 2.586a2 2 0 012.828 0z" />
+      </svg>
+    </button>
+    </div>
+
+    <!-- Comparative Standards Section -->
+    <div class="relative p-4">
+        <h3 class="font-bold text-lg mb-3">Comparative Standards (CS)</h3>
+        <textarea 
+            class="w-full p-2 border rounded" 
+            rows="4"
+        >{formData.comparativeStandards}</textarea>
+        <button
+        uk-toggle="target: #edit-modal"
+        type="button"
+        class="absolute top-2 right-2 text-blue-500 hover:text-blue-700"
+        onclick="updateModalTitle('Comparative Standards (CS)')"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M17.414 2.586a2 2 0 010 2.828L8.414 14.414 5 15l.586-3.414L14.586 2.586a2 2 0 012.828 0z" />
+      </svg>
+    </button>
+    </div>
+
+    <!-- Progress Evaluation Section -->
+    <div>
+        <h3 class="font-bold text-lg mb-3">Progress Evaluation (EV)</h3>
+        <select class="uk-select w-full p-2 border rounded">
+          <option value="new" selected={formData.progressEvaluation === 'new'}>
+            New
+        </option>
+        <option value="active" selected={formData.progressEvaluation === 'active'}>
+            Active
+        </option>
+        <option value="resolve" selected={formData.progressEvaluation === 'resolve'}>
+            Resolved
+        </option>
+        <option value="discontinued" selected={formData.progressEvaluation === 'discontinued'}>
+            Discontinued
+        </option>
+        </select>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="flex justify-between mt-8">
+        <button class="bg-gray-300 px-6 py-2 rounded-lg hover:bg-gray-400" onclick="window.history.back()">Back</button>
+        <button type="submit" class="bg-blue-500 px-6 py-2 text-white rounded-lg hover:bg-blue-600">Save</button>
+    </div>
+</div>
+
+
+<script lang="ts">
+  function updateModalTitle(title) {
+    const modalTitleElement = document.getElementById("modal-title");
+    if (modalTitleElement) {
+      modalTitleElement.textContent = title; // Update the modal title
+    }
+  }
+</script>
+
+
+<!-- Modal structure -->
+<div id="edit-modal" uk-modal>
+    <div class="uk-modal-dialog p-6 rounded-lg bg-white shadow-lg w-1/2 mx-auto">
+      <!-- Modal header -->
+      <div class="uk-modal-header relative border-b pb-3">
+        <h2 id="modal-title" class="uk-modal-title text-lg font-bold">Default Title</h2>
+        <button class="absolute top-3 right-3 uk-modal-close" type="button">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 hover:text-gray-700" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 8.586L3.707 2.293A1 1 0 102.293 3.707L8.586 10l-6.293 6.293a1 1 0 101.414 1.414L10 11.414l6.293-6.293a1 1 0 00-1.414-1.414L10 8.586z" clip-rule="evenodd" />
+          </svg>
+        </button>
+      </div>
+  
+      <!-- Modal body -->
+      <div class="uk-modal-body space-y-4">
+        <!-- Textarea for section content -->
+        <div>
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="section-content">
+            Section Content
+          </label>
+          <textarea
+            id="section-content"
+            class="w-full h-40 border border-gray-300 p-3 rounded focus:outline-none focus:ring focus:ring-blue-300"
+            placeholder="Enter details"
+          ></textarea>
+        </div>
+  
+        <!-- File Upload -->
+        <div>
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="file-upload">
+            Upload File
+          </label>
+          <input
+            id="file-upload"
+            type="file"
+            class="block w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:ring-blue-300"
+          />
+        </div>
+  
+        <!-- Image Upload -->
+        <div>
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="image-upload">
+            Upload Image
+          </label>
+          <input
+            id="image-upload"
+            type="file"
+            accept="image/*"
+            class="block w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:ring-blue-300"
+          />
+        </div>
+  
+        <!-- Add/Paste Link -->
+        <div>
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="link-input">
+            Add Link
+          </label>
+          <input
+            id="link-input"
+            type="url"
+            class="block w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:ring-blue-300"
+            placeholder="Paste a link here"
+          />
+        </div>
+      </div>
+  
+      <!-- Modal footer -->
+      <div class="uk-modal-footer flex justify-end space-x-3 mt-4 border-t pt-3">
+        <button
+          class="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300"
+          type="button"
+          uk-toggle="target: #edit-modal"
+        >
+          Cancel
+        </button>
+        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+          Save
+        </button>
+      </div>
+    </div>
+  </div>

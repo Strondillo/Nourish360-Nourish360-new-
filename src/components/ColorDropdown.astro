@@ -1,0 +1,50 @@
+---
+const colors = [
+  { name: 'Red', value: '#FF0000' },
+  { name: 'Green', value: '#00FF00' },
+  { name: 'Blue', value: '#0000FF' },
+  { name: 'Yellow', value: '#FFFF00' },
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Dropdown</title>
+    <style>
+      select {
+        width: 200px;
+        height: 40px;
+        font-size: 16px;
+        color: black; /* Ensure text is black initially */
+      }
+    </style>
+  </head>
+  <body>
+    <select id="colorDropdown">
+      {colors.map((color) => (
+        <option value={color.value} style={`background-color: ${color.value}; color: black;`}>
+          {color.name}
+        </option>
+      ))}
+    </select>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const dropdown = document.getElementById('colorDropdown');
+        
+        if (dropdown instanceof HTMLSelectElement) {
+          dropdown.addEventListener('change', function() {
+            dropdown.style.backgroundColor = dropdown.value;
+            dropdown.style.color = 'black'; // Set text color to black
+          });
+          
+          // Set initial color based on the default selected option
+          dropdown.style.backgroundColor = dropdown.value;
+          dropdown.style.color = 'black'; // Set text color to black initially
+        }
+      });
+    </script>
+  </body>
+</html>

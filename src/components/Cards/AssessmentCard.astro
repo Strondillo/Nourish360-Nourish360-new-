@@ -1,0 +1,21 @@
+---
+const { title, buttonText, link } = Astro.props;
+---
+<div class="uk-card uk-card-default uk-card-hover uk-card-body w-80 text-center transition-transform transform hover:scale-105" style="background-color: #f0f0f0;">
+    <h2 class="uk-card-title text-xl font-semibold mb-4 text-gray-800">{title}</h2>
+    <a 
+    href={link}
+    class="uk-button uk-button-primary custom-button mt-4"
+>
+    {buttonText}
+</a>
+
+</div>
+
+<style>
+.custom-button {
+    background-color: #6BC7F6;
+    color: white;
+    border-radius: 4px;
+}
+</style>

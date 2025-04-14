@@ -1,0 +1,38 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Graphs from '../components/NutritionE&M/Graphs.astro';
+import NutritionStats from '../components/NutritionE&M/NutritionStats.astro';
+import Form from '../components/NutritionE&M/Form.astro';
+import PrintButton from '../components/NutritionE&M/PrintButton.astro';
+---
+
+<Layout title="Nourish360" isRNDPage={true}>
+  <div class="bg-[#EDF9FF] min-h-screen w-full bg-gradient-to-r">
+
+    <h1 class="text-3xl font-semibold mb-6 text-center">Nutrition Monitoring & Evaluation</h1>
+
+    <!-- Printable Content -->
+    <div class="printable-content">
+      <!-- Nutrition Stats -->
+      <div class="w-full max-w-3xl mx-auto mb-8">
+        <NutritionStats />
+      </div>
+
+      <!-- Visual Analytics -->
+      <div class="w-full max-w-4xl mx-auto mb-4">
+        <Graphs />
+      </div>
+
+      <!-- Form -->
+      <div class="w-full max-w-3xl mx-auto mb-8">
+        <Form />
+      </div>
+    </div>
+
+    <!-- Print Button -->
+    <div class="w-full max-w-3xl mx-auto text-center">
+      <PrintButton />
+    </div>
+
+  </div>
+</Layout>

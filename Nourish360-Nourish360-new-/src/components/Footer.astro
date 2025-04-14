@@ -1,0 +1,54 @@
+<footer class="footer bg-gray-100 text-gray-600 py-6 mt-auto">
+  <div class="footer-container max-w-7xl mx-auto px-6 sm:px-5 flex justify-between items-center">
+    
+    <!-- Left aligned copyright text -->
+    <p class="text-sm">
+      &copy; {new Date().getFullYear()} Nourish360. All rights reserved.
+    </p>
+    
+    <!-- Right aligned navigation links -->
+    <nav class="footer-links flex space-x-6 text-sm">
+      <a href="/" class="hover:underline">Overview</a>
+      <a href="/careers" class="hover:underline">Careers</a>
+      <a href="/help" class="hover:underline">Help</a>
+      <a href="/privacy" class="hover:underline">Privacy</a>
+    </nav>
+  </div>
+</footer>
+
+<style>
+  /* Main footer container */
+  .footer {
+    border-top: 1px solid #E0E0E0;
+  }
+
+  /* Footer inner container */
+  .footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Links styling */
+  .footer-links a {
+    color: #546070;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .footer-links a:hover {
+    color: #007BFF;
+    text-decoration: underline;
+  }
+
+  /* Ensures footer stays at the bottom of the page */
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  main {
+    flex: 1;
+  }
+</style>

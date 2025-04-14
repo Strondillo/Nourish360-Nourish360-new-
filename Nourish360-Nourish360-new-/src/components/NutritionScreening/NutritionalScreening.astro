@@ -1,0 +1,47 @@
+---
+import Patientinfo from "./Patientinfo.astro";
+import ClinicalCondition from "./ClinicalCondition.astro";
+import WeightHistory from "./WeightHistory.astro";
+
+export interface NutritionalScreeningFormProps {
+  formType: string; // could be 'adult' or 'pediatric'
+}
+const { formType } = Astro.props;
+---
+
+<div class="nutritional-form p-8 bg-[#faf3e3] max-w-6xl mx-auto rounded-lg">
+  <h1 class="text-center text-2xl mb-4 font-museo">
+    {formType === 'adult' ? 'Admission Adult' : 'Admission Pediatric'}
+</h1>
+  
+    <!-- Form content -->
+    <form id="nutritional-screening-form" class="flex flex-col">
+      <Patientinfo />
+      <ClinicalCondition formType={formType} />
+      <WeightHistory formType={formType} />
+  
+      <div class="flex justify-center gap-4 mt-6">
+        <button
+          type="button"
+          onclick="window.history.back()"
+          class="uk-buttonuk-button-primary bg-[#f2ad45] text-white rounded px-6 py-2 text-lg hover:bg-[#e5943a] transition-colors"
+        >
+          Back
+        </button>
+        <button
+          type="submit"
+          class="uk-buttonuk-button-primary bg-[#f2ad45] text-white rounded px-6 py-2 text-lg hover:bg-[#e5943a] transition-colors"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+  
+  <style>
+  @import url('https://fonts.googleapis.com/css2?family=MuseoModerno:wght@400&display=swap');
+  
+  .font-museo {
+      font-family: 'MuseoModerno', sans-serif;
+  }
+  </style>

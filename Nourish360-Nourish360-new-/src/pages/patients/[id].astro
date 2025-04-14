@@ -1,0 +1,124 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { fetchPatients } from "../../utils/fetchPatients";
+import type { Patient } from "../../types/Patient";
+
+// Define getStaticPaths to generate paths dynamically
+export async function getStaticPaths() {
+  const patients: Patient[] = await fetchPatients();
+
+  // Generate paths based on patient IDs
+  return patients.map((patient) => ({
+    params: { id: patient.id.toString() },
+  }));
+}
+
+// Get the patient ID from the URL parameters
+const { id } = Astro.params;
+const patientId = parseInt(id, 10);
+
+if (isNaN(patientId)) {
+  throw new Error(`Invalid ID: ${id}`);
+}
+
+// Fetch all patients and find the matching patient by ID
+let selectedPatient: Patient | null = null;
+try {
+  const patients: Patient[] = await fetchPatients();
+  selectedPatient = patients.find((p) => p.id === patientId) || null;
+} catch (error) {
+  console.error("Error fetching patient data:", error);
+}
+
+if (!selectedPatient) {
+  throw new Error(`Patient with ID ${id} not found`);
+}
+
+// Normalize risk level to determine color class
+const normalizedRisk = selectedPatient.risk ? selectedPatient.risk.toLowerCase().trim() : '';
+const riskClass = normalizedRisk === 'low risk' ? 'bg-green-200' :
+                  normalizedRisk === 'moderate risk' ? 'bg-yellow-200' :
+                  normalizedRisk === 'high risk' ? 'bg-red-200' :
+                  'bg-gray-200';
+---
+
+<Layout title={`${selectedPatient.name} Overview`} isRNDPage={true}>
+  <div class="container mx-auto px-4 py-8 bg-[#FDF9F4] shadow-lg rounded-lg mt-5 mb-5 text-black">
+    <div class="flex gap-6">
+      <!-- Patient Summary Card -->
+      <div class={`${riskClass} p-6 rounded-lg shadow-md w-1/3`}>
+        <img src={selectedPatient.profileImage || '/default-profile.png'} alt={selectedPatient.name} class="w-32 h-32 rounded-full mx-auto" />
+        <h2 class="text-xl font-bold text-center mt-4">{selectedPatient.name}</h2>
+        <p class="text-center">{selectedPatient.risk}</p>
+        <div class="mt-4">
+          <p><strong>Age:</strong> {selectedPatient.age} yrs. old</p>
+          <p><strong>Gender:</strong> {selectedPatient.gender}</p>
+          <p><strong>Occupation:</strong> {selectedPatient.occupation}</p>
+          <p><strong>Weight:</strong> {selectedPatient.weight} kg</p>
+          <p><strong>Height:</strong> {selectedPatient.height} cm</p>
+          <p><strong>BMI:</strong> {selectedPatient.bmi}</p>
+        </div>
+      </div>
+      <!-- Detailed Information -->
+      <div class="flex-1 bg-white p-6 rounded-lg shadow-md text-black">
+        <h3 class="text-2xl font-semibold">Detailed Information</h3>
+        <p class="mt-4">
+          During the initial appointment, the registered dietitian nutritionist (RDN) collects detailed
+          information about the patient’s lifestyle, dietary habits, and caloric intake.
+        </p>
+        <!-- Biochemical Data -->
+        <div class="mt-6">
+          <h4 class="text-xl font-semibold">Biochemical Data</h4>
+          <p>{selectedPatient.biochemical || "No biochemical data available."}</p>
+        </div>
+        <!-- Estimated Energy Intake -->
+        <div class="mt-6">
+          <h4 class="text-xl font-semibold">Estimated Energy Intake</h4>
+          <p>{selectedPatient.estimated_energy_intake || "Not provided"} kcal</p>
+        </div>
+        <!-- Meals -->
+        <div class="mt-6">
+          <h4 class="text-xl font-semibold">Meals</h4>
+          <p>{selectedPatient.meals || "No meal information available."}</p>
+        </div>
+        <!-- Motivation -->
+        <div class="mt-6">
+          <h4 class="text-xl font-semibold">Motivation Factors</h4>
+          <p><strong>Importance:</strong> {selectedPatient.motivation_importance || "Not provided"}</p>
+          <p><strong>Confidence:</strong> {selectedPatient.motivation_confidence || "Not provided"}</p>
+          <p><strong>Readiness:</strong> {selectedPatient.motivation_readiness || "Not provided"}</p>
+        </div>
+        <!-- Physical Activity -->
+        <div class="mt-6">
+          <h4 class="text-xl font-semibold">Physical Activity</h4>
+          <ul class="mt-2 list-disc ml-6">
+            {selectedPatient.physical_activity.split(',').map((activity) => (
+              <li>{activity.trim()}</li>
+            ))}
+          </ul>
+        </div>
+        <!-- Notes -->
+        <div class="mt-6">
+          <h4 class="text-xl font-semibold">Patient’s Notes</h4>
+          <textarea
+            class="w-full p-4 border rounded-lg mt-2"
+            placeholder="Enter notes for this patient."
+          ></textarea>
+        </div>
+      </div>
+    </div>
+    <!-- Button group -->
+    <div class="flex justify-between mt-8">
+      <button 
+        onclick="history.back()" 
+        class="bg-gray-200 text-black px-4 py-2 rounded hover:bg-gray-300">
+        Back
+      </button>
+      <button 
+        onclick="window.location.href='/NutritionAssessment/NutritionAssessment'" 
+        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+        Nutrition Care Process
+      </button>
+    </div>
+  </div>
+</Layout>

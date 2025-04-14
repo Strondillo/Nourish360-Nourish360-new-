@@ -1,0 +1,168 @@
+---
+const detailData = {
+    title: "Client History (CH) & Food/Nutrition - Related History (FH)",
+    clientHistory: {
+        medicalHistory: "Patient with diabetes, overweight",
+        housing: "Lives in apartment with girlfriend 1 mile from workplace",
+        preExistingCondition: "Type 2 Diabetes",
+    },
+    foodHistory: {
+        foodIntake: "Bring a print of food record from an app. Daily food intake varies.",
+        breakfast: "None usually",
+        lunch: "Often eats big lunches",
+        dinner: "Large meal, says he doesn’t really think about or plan what he eats in advance.",
+        alcoholIntake: "Goes with co-worker 2-3 nights per week after work and drinks 36-48 oz beer.",
+        totalEnergyIntake: "3200 kcal/day",
+        physicalActivity: "Walks to/from work a total of 40min 3 times each week. Occasionally rides a bike.",
+        readinessToChange: [
+            "I think it is important to make change - 8",
+            "I am sure that I will succeed - 7",
+            "I am ready to start - 10",
+        ],
+    },
+};
+---
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.7.6/dist/css/uikit.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.7.6/dist/js/uikit.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.7.6/dist/js/uikit-icons.min.js"></script>
+
+<div class="flex justify-center mb-8">
+    <div class="w-full max-w-3xl text-center">
+        <h3 class="text-3xl font-bold mt-5">{detailData.title}</h3>
+
+<div class="flex justify-center">
+            <form class="uk-grid-small uk-margin-top" uk-grid>
+                <!-- Client History Section -->
+                <div class="uk-width-1-1 uk-margin-small">
+                    <div class="uk-card uk-card-default uk-card-body">
+                        <h3 class="uk-card-title uk-text-center">Client History (CH)</h3>
+                        <div class="uk-grid-small" uk-grid>
+                            <div class="uk-width-1-1 text-left">
+                                <label class="block font-semibold text-gray-500">Patient medical/health history:</label>
+                                <input 
+                                    type="text" 
+                                    value={detailData.clientHistory.medicalHistory} 
+                                    class="uk-input text-black"
+                                />
+                            </div>
+
+                            <div class="uk-width-1-1 text-left">
+                                <label class="block font-semibold text-gray-500">Housing situation:</label>
+                                <input 
+                                    type="text" 
+                                    value={detailData.clientHistory.housing} 
+                                    class="uk-input text-black"
+                                />
+                            </div>
+
+                            <div class="uk-width-1-1 text-left">
+                                <label class="block font-semibold text-gray-500">Pre Existing Condition:</label>
+                                <input 
+                                    type="text" 
+                                    value={detailData.clientHistory.preExistingCondition} 
+                                    class="uk-input text-black"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Food/Nutrition History Section -->
+                <div class="uk-width-1-1 uk-margin-small">
+                    <div class="uk-card uk-card-default uk-card-body">
+                        <h3 class="uk-card-title uk-text-center">Food/Nutrition - Related History (FH)</h3>
+                        <div class="uk-grid-small" uk-grid>
+                            <div class="uk-width-1-1 text-left">
+                                <label class="block font-semibold text-gray-500">Food intake:</label>
+                                <input 
+                                    type="text" 
+                                    value={detailData.foodHistory.foodIntake} 
+                                    class="uk-input text-black"
+                                />
+                            </div>
+
+                            <div class="uk-width-1-2@s text-left">
+                                <label class="block font-semibold text-gray-500">Breakfast:</label>
+                                <input 
+                                    type="text" 
+                                    value={detailData.foodHistory.breakfast} 
+                                    class="uk-input text-black"
+                                />
+                            </div>
+
+                            <div class="uk-width-1-2@s text-left">
+                                <label class="block font-semibold text-gray-500">Lunch:</label>
+                                <input 
+                                    type="text" 
+                                    value={detailData.foodHistory.lunch} 
+                                    class="uk-input text-black"
+                                />
+                            </div>
+
+                            <div class="uk-width-1-2@s text-left">
+                                <label class="block font-semibold text-gray-500">Dinner:</label>
+                                <input 
+                                    type="text" 
+                                    value={detailData.foodHistory.dinner} 
+                                    class="uk-input text-black"
+                                />
+                            </div>
+
+                            <div class="uk-width-1-2@s text-left">
+                                <label class="block font-semibold text-gray-500">Alcohol Intake:</label>
+                                <input 
+                                    type="text" 
+                                    value={detailData.foodHistory.alcoholIntake} 
+                                    class="uk-input text-black"
+                                />
+                            </div>
+
+                            <div class="uk-width-1-2@s text-left">
+                                <label class="block font-semibold text-gray-500">Total Energy intake:</label>
+                                <input 
+                                    type="text" 
+                                    value={detailData.foodHistory.totalEnergyIntake} 
+                                    class="uk-input text-black"
+                                />
+                            </div>
+
+                            <div class="uk-width-1-2@s text-left">
+                                <label class="block font-semibold text-gray-500">Physical activity:</label>
+                                <input 
+                                    type="text" 
+                                    value={detailData.foodHistory.physicalActivity} 
+                                    class="uk-input text-black"
+                                />
+                            </div>
+
+                            <div class="uk-width-1-1">
+                                <label class="block font-semibold text-gray-500">Readiness to change nutrition-related behaviors:</label>
+                                <textarea 
+                                    class="uk-textarea text-black" 
+                                    rows="3"
+                                >{detailData.foodHistory.readinessToChange.join('\n')}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="uk-width-1-1 uk-flex uk-flex-between uk-margin-top uk-margin-bottom">
+                    <button 
+                        type="button" 
+                        onclick="history.back()" 
+                        class="uk-button uk-button-default"
+                        style="border-radius: 4px; background-color: #C4C4C4;">
+                        Back
+                    </button>
+                    <button 
+                        type="submit" 
+                        class="uk-button uk-button-primary"
+                        style="border-radius: 4px;">
+                        Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

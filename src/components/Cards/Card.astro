@@ -1,0 +1,306 @@
+---
+const { accountType } = Astro.props;
+
+const rndWelcomeCard = {
+  title: 'Welcome, Doctor!',
+  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+  buttonText: 'Learn more',
+  buttonLink: '#',
+  imageSrc: '/Logo.png' // Path to the image you want to display
+};
+
+const rndCards = [
+  { title: 'Lorem ipsum 1', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', buttonText: 'More Info', buttonLink: '#' },
+  { title: 'Lorem ipsum 2', description: 'Another card description.', buttonText: 'Details', buttonLink: '#' },
+  { title: 'Lorem ipsum 3', description: 'Further details about this card.', buttonText: 'Explore', buttonLink: '#' },
+];
+
+const doctorWelcomeCard = {
+  title: 'Welcome, Doctor!',
+  description: 'The doctor is responsible for managing patient screenings, referring patients to specific RNDs, and overseeing patient records and details.',
+  buttonText: 'Learn more',
+  buttonLink: '#',
+  imageSrc: '/Logo.png' // Update the image path as needed
+};
+
+const doctorServiceCards = [
+  { title: 'Patient Screening', description: 'Perform screenings to assess patients and determine their medical needs.', buttonText: 'More Info', buttonLink: '#' },
+  { title: 'Refer Patients', description: 'Coordinate with RNDs by referring patients for specific nutritional care plans.', buttonText: 'More Info', buttonLink: '#' },
+  { title: 'Manage Records', description: 'Ensure patient records are accurate, updated, and accessible.', buttonText: 'More Info', buttonLink: '#' },
+];
+
+---
+<section class="card-section py-20">
+  <div class="container mx-auto">
+    {accountType === 'Rnd' && (
+      <>
+      <div class="welcome-card bg-yellow-200 p-6 rounded-lg shadow-lg mb-12 flex justify-between items-center">
+          <div class="welcome-text">
+            <h2 class="welcome-title">{rndWelcomeCard.title}</h2>
+            <p class="welcome-description">{rndWelcomeCard.description}</p>
+            <a href={rndWelcomeCard.buttonLink} class="welcome-button">{doctorWelcomeCard.buttonText}</a>
+          </div>
+          <img src={rndWelcomeCard.imageSrc} alt="Welcome Image" class="welcome-image" />
+        </div>
+
+        <!-- Other Cards for RND -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {rndCards.map(card => (
+            <div class="uk-card uk-card-body bg-[#a2d8f3] p-6 rounded-lg shadow-lg hover:shadow-2xl hover:scale-105 transition-transform duration-300 ease-in-out">
+              <h3 class="card-title">{card.title}</h3>
+              <p class="card-description">{card.description}</p>
+              <a href={card.buttonLink} class="card-button">{card.buttonText}</a>
+            </div>
+          ))}
+        </div>
+      </>
+    )}
+
+    {accountType === 'Doctor' && (
+      <>
+        <!-- Welcome Card for Doctor -->
+        <div class="welcome-card2 bg-yellow-200 p-6 rounded-lg shadow-lg mb-12 flex justify-between items-center">
+          <div class="welcome-text2">
+            <h2 class="welcome-title2">{doctorWelcomeCard.title}</h2>
+            <p class="welcome-description2">{doctorWelcomeCard.description}</p>
+            <a href={doctorWelcomeCard.buttonLink} class="welcome-button2">{doctorWelcomeCard.buttonText}</a>
+          </div>
+          <img src={doctorWelcomeCard.imageSrc} alt="Welcome Image" class="welcome-image2" />
+        </div>
+
+        <!-- Service Cards for Doctor -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {doctorServiceCards.map(serviceCard => (
+            <div class="uk-card uk-card-body bg-yellow-200 p-6 rounded-lg shadow-lg hover:shadow-2xl hover:scale-105 transition-transform duration-300 ease-in-out">
+              <h2 class="text-xl font-bold">{serviceCard.title}</h2>
+              <p class="mt-2 mb-2 text-sm">{serviceCard.description}</p>
+              <a href={serviceCard.buttonLink} class="service-button">{serviceCard.buttonText}</a>
+            </div>
+          ))}
+        </div>
+      </>
+    )}
+  </div>
+</section>
+
+<style>
+
+
+  /* Welcome Card Styles */
+  .welcome-card {
+    display: flex;
+    background-color: #c9e6f5;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: left;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .welcome-text {
+    flex: 1;
+    margin-right: 20px;
+  }
+
+  .welcome-image {
+    max-width: 300px;
+    height: auto;
+    border-radius: 50%;
+    margin-left: 20px;
+  }
+
+  .welcome-title {
+    font-size: 2rem;
+    color: #2C3E50;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+
+  .welcome-description {
+    font-size: 1.1rem;
+    color: #34495E;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  .welcome-button {
+    display: inline-block;
+    background-color: #3498DB;
+    color: white;
+    text-decoration: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+  }
+
+  .welcome-button:hover {
+    background-color: #2980B9;
+  }
+
+  .welcome-card2 {
+    display: flex;
+    background-color: #FBF4EA;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: left;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .welcome-text2 {
+    flex: 1;
+    margin-right: 20px;
+  }
+
+  .welcome-image2 {
+    max-width: 300px;
+    height: auto;
+    border-radius: 50%;
+    margin-left: 20px;
+  }
+
+  .welcome-title2 {
+    font-size: 2rem;
+    color: #2C3E50;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+
+  .welcome-description2 {
+    font-size: 1.1rem;
+    color: #34495E;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  .welcome-button2 {
+    display: inline-block;
+    background-color: #FFC77D;
+    color: white;
+    text-decoration: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+    
+  }
+
+  .welcome-button2:hover {
+    background-color: #F2AD45;
+  }
+
+  /* RND Card Styles */
+  .card {
+    background-color: #E7F4FE;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+    color: #3B4053;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .card-description {
+    font-size: 1rem;
+    color: #546070;
+    margin-bottom: 20px;
+  }
+
+  .card-button {
+    background-color: #4FC0E8;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+
+  .card-button:hover {
+    background-color: #3AA1C2;
+  }
+
+  /* Doctor Service Card Styles */
+  .card.bg-yellow-300 {
+    background-color: #FBD982;
+    
+  }
+
+  .service-button{
+    background-color: #f7c138;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    margin-top: 30px; /* Push the button to the bottom of the card */
+    align-self: center;
+  }
+
+  .uk-card{
+    text-align: center;
+  }
+  .service-button:hover{
+    background-color: #f5970a;
+  }
+
+  .text-xl {
+    font-size: 1.25rem;
+  }
+
+  .font-bold {
+    font-weight: 700;
+  }
+
+  .bg-yellow-400 {
+    background-color: #f6e05e;
+  }
+
+  .bg-yellow-400:hover {
+    background-color: #ecc94b;
+  }
+
+  .mt-4 {
+    margin-top: 1rem;
+  }
+
+  .rounded-full {
+    border-radius: 9999px;
+  }
+
+  .uk-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px; /* Increase padding for larger size */
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 240px; /* Match RND card height */
+  width: 100%; /* Ensure consistency across screens */
+}
+
+.uk-card:hover {
+  transform: translateY(-5px); /* Subtle hover effect */
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+}
+</style>
